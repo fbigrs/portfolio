@@ -307,8 +307,13 @@ export default function Portfolio() {
       </section>
 
       <footer className="px-6 py-8 bg-black border-t border-gray-900">
-        <div className="max-w-4xl mx-auto text-center text-gray-500">
-          <p>&copy; 2025 Fabian Gross. All rights reserved.</p>
+        <div className="max-w-4xl mx-auto flex flex-col items-center gap-3 text-gray-500">
+          <p className="text-center">&copy; 2025 Fabian Gross. All rights reserved.</p>
+          <nav className="flex items-center gap-4 text-sm">
+            <a href="/legal-notice" className="hover:text-gray-300 underline decoration-gray-700 hover:decoration-gray-400">
+              Legal Notice
+            </a>
+          </nav>
         </div>
       </footer>
     </div>
