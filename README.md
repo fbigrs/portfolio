@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Portfolio
 
-## Getting Started
+A personal portfolio built with Next.js 15, React 19, and Tailwind CSS v4. Static-exported for hosting on GitHub Pages.
 
-First, run the development server:
+### Tech stack
+- **Framework**: Next.js 15 (App Router)
+- **UI**: Tailwind CSS v4, Radix UI primitives, `lucide-react`, shadcn-style components under `components/ui`
+- **Forms/Validation**: `react-hook-form`, `zod`
+- **Other**: `next-themes`, `date-fns`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Requirements
+- **Node.js**: 20.x (matches CI)
+- **Package manager**: npm (CI uses `npm ci`)
+
+### Getting started
+1. Install dependencies:
+   ```bash
+   npm ci
+   ```
+2. Start the dev server:
+   ```bash
+   npm run dev
+   ```
+3. Open `http://localhost:3000/portfolio` in your browser (the site uses a `basePath`).
+
+You can start editing the homepage at `app/page.tsx`. Styles live in `app/globals.css` and `styles/globals.css`. UI components are in `components/ui`.
+
+### Scripts
+- **dev**: `npm run dev` — start the development server
+- **build**: `npm run build` — static export to `out/`
+- **start**: `npm run start` — run the production server (not required for Pages)
+- **lint**: `npm run lint`
+
+### Project structure (high level)
+```
+app/                 # App Router pages/layouts
+components/          # Reusable components
+  ui/                # shadcn-style components built on Radix
+public/              # Static assets
+.github/workflows/   # CI/CD (GitHub Pages)
+styles/              # Additional global styles
+next.config.mjs      # Static export + basePath configuration
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Deployment (GitHub Pages)
+This repository is configured to deploy to GitHub Pages using static export.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Static export is enabled in `next.config.mjs`:
+  ```js
+  // next.config.mjs
+  const nextConfig = {
+    output: 'export',
+    images: { unoptimized: true },
+    basePath: '/portfolio', // change to your repo name or '' for root
+    eslint: { ignoreDuringBuilds: true },
+    typescript: { ignoreBuildErrors: true },
+  }
+  export default nextConfig
+  ```
+- The workflow `.github/workflows/deploy.yml` builds and publishes `./out` to Pages on pushes to `main`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Steps to enable Pages:
+1. In your repository Settings → Pages, set Source to “GitHub Actions”.
+2. Ensure your default branch is `main` (or update the workflow trigger).
+3. If your repository name changes, update `basePath` in `next.config.mjs` to match the repo name. For a custom domain or a root-level site, set `basePath` to `''`.
 
-## Learn More
+Notes:
+- `images.unoptimized` is required for static export + GitHub Pages.
+- Build output is written to `out/` by `npm run build`.
 
-To learn more about Next.js, take a look at the following resources:
+### Acknowledgements
+- [Next.js](https://nextjs.org)
+- [Radix UI](https://www.radix-ui.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### License
+MIT
